@@ -1,4 +1,4 @@
-package ru.netology.stats;
+package ru.netology.statistic;
 
 public class NumberOfMonthsBelowAverage {
     double calculate(double AverageSalesAmount) {
