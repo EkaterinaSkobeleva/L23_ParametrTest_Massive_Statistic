@@ -2,12 +2,12 @@ package ru.netology.statistic;
 
 public class StatisticService {
 
-    public int SalesAmount(int[] arrayOfAmount) {
-        // Сумма элементов массива
-        int totalSumArray = 0;
-        int lengthOfArray = arrayOfAmount.length;
+    //сумма всех продаж
+    public int salesAmount(int[] arrayOfAmount) {
 
-        for (int i = 0; i < lengthOfArray; i++) {
+        int totalSumArray = 0;
+
+        for (int i = 0; i < arrayOfAmount.length; i++) {
             totalSumArray += arrayOfAmount[i];
         }
         // System.out.println("Сумма всех продаж: " + totalSumArray);
@@ -15,26 +15,19 @@ public class StatisticService {
         return totalSumArray;
     }
 
-    public double AverageSalesAmount(int[] arrayOfAmount) {
+    // Средняя сумма продаж в месяц
+    public double averageSalesAmount(int[] arrayOfAmount) {
 
-        int lengthOfArray = arrayOfAmount.length;
-        // Сумма элементов массива
-        double totalSumArray = 0;
-                //SalesAmount(arrayOfAmount);
+        double averageSalesAmount = salesAmount(arrayOfAmount) / 12;
 
-        for (int i = 0; i < arrayOfAmount.length; i++) {
-            totalSumArray += arrayOfAmount[i];
-        }
-
-        double averageSalesAmount = totalSumArray / 12;
         // System.out.println("Средняя сумма продаж в месяц: " + averageSalesAmount);
 
         return averageSalesAmount;
     }
 
-    public int PeakMaxSalesMonth(int[] arrayOfAmount) {
+    //последний месяц c продажами на максимальную сумму
+    public int peakMaxSalesMonth(int[] arrayOfAmount) {
 
-        //последний месяц c продажами на максимальную сумму
         int maxMonth = arrayOfAmount[0];
         int maxIdMonth = 0;
 
@@ -44,19 +37,15 @@ public class StatisticService {
                 maxIdMonth = i;
             }
         }
-        // Вывести на экран все элементы массива
-        // for (int i = 0; i < arrayOfAmount.length; i++) {
-        //   System.out.print(arrayOfAmount[i] + " " + i + " ");
-        //}
         //индексы массива начинаются с 0, т.е. для 12 элементов, последний  = 11
-        System.out.println("Последний месяц c продажами на максимальную сумму: " + maxIdMonth);
+        // System.out.println("Последний месяц c продажами на максимальную сумму: " + maxIdMonth);
 
         return maxIdMonth;
     }
 
-    public int PeakMinSalesMonth(int[] arrayOfAmount) {
+    //последний месяц c продажами на минимальную сумму
+    public int peakMinSalesMonth(int[] arrayOfAmount) {
 
-        //последний месяц c продажами на минимальную сумму
         int minAmount = arrayOfAmount[0];
         int minIdMonth = 0;
 
@@ -68,42 +57,37 @@ public class StatisticService {
 
         }
 
-        System.out.println("Последний месяц c продажами на минимальную сумму: " + minIdMonth);
+        //System.out.println("Последний месяц c продажами на минимальную сумму: " + minIdMonth);
 
         return minIdMonth;
     }
 
-    public int NumberOfMonthsBelowAverage(int[] arrayOfAmount) {
+    // Нахождение количества месяцев с вырочкой ниже среднего
+    public int numberOfMonthsBelowAverage(int[] arrayOfAmount) {
 
-            // Нахождение количества месяцев с вырочкой ниже среднего
-            int quantityMounth = 0;
-            double AverageSalesAmountLocal=AverageSalesAmount(arrayOfAmount);
+        int quantityMonth = 0;
 
-            for (int i = 0; i < arrayOfAmount.length; i++) {
-
-                if (arrayOfAmount[i] < AverageSalesAmountLocal) {
-                    quantityMounth=quantityMounth+1;
-                }
+        for (int i = 0; i < arrayOfAmount.length; i++) {
+            if (arrayOfAmount[i] < averageSalesAmount(arrayOfAmount)) {
+                quantityMonth = quantityMonth + 1;
             }
-
-            System.out.println("Количество месяцев с вырочкой ниже среднего: " + quantityMounth);
-
-            return quantityMounth;
         }
-    public int NumberOfMonthsOverAverage(int[] arrayOfAmount){
-            // Нахождение количества месяцев с вырочкой выше среднего
-            int quantityMounth = 0;
-        double AverageSalesAmountLocal=AverageSalesAmount(arrayOfAmount);
+        // System.out.println("Количество месяцев с вырочкой ниже среднего: " + quantityMonth);
+        return quantityMonth;
+    }
 
-            for (int i = 1; i < arrayOfAmount.length; i++) {
+    // Нахождение количества месяцев с вырочкой выше среднего
+    public int numberOfMonthsOverAverage(int[] arrayOfAmount) {
 
-                if (arrayOfAmount[i] > AverageSalesAmountLocal) {
-                    quantityMounth = quantityMounth + 1;
-                }
+        int quantityMonth = 0;
+
+        for (int i = 1; i < arrayOfAmount.length; i++) {
+            if (arrayOfAmount[i] > averageSalesAmount(arrayOfAmount)) {
+                quantityMonth = quantityMonth + 1;
             }
-
-            System.out.println("Количество месяцев с вырочкой выше среднего: " + quantityMounth);
-
-            return quantityMounth;
         }
+        // System.out.println("Количество месяцев с вырочкой выше среднего: " + quantityMonth);
+
+        return quantityMonth;
+    }
 }
